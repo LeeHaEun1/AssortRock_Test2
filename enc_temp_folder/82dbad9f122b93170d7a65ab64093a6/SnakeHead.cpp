@@ -3,8 +3,6 @@
 
 #include "SnakeHead.h"
 #include "SnakeGameMode.h"
-//#include "Kismet/KismetSystemLibrary.h"
-//#include <Kismet/GameplayStatics.h>
 
 // Sets default values
 ASnakeHead::ASnakeHead()
@@ -146,9 +144,6 @@ void ASnakeHead::LeftAction()
 		{
 			//Error Log
 			UE_LOG(LogTemp, Error, TEXT("Game Over"));
-
-			//TEnumAsByte<EQuitPreference::Type> QuitPreference = EQuitPreference::Quit;
-			//UKismetSystemLibrary::QuitGame(0, UGameplayStatics::GetPlayerController(0, 0), QuitPreference, true);
 
 			return;
 		}
