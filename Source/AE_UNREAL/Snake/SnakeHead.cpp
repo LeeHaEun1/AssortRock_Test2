@@ -123,8 +123,33 @@ void ASnakeHead::LeftAction()
 	// 여기에 Body가 있는지 확인해야 한다.
 	if (true == GetSnakeGameMode()->IsPart(GetActorLocation(), "Body"))
 	{
+		// 만난 Body가 myTail이라면 게임오버 로그 띄우기 & 이 때는 꼬리 생성하지 않기
+		//for (int i = 0; i < wholeSnake.Num(); i++)
+		//{
+		//	if (wholeSnake[i]->GetActorLocation().Y == GetActorLocation().Y && wholeSnake[i]->GetActorLocation().Z == GetActorLocation().Z)
+		//	{
+		//		// Error Log
+		//		UE_LOG(LogTemp, Error, TEXT("Game Over"));
+
+		//		return;
+		//	}
+		//}
+
 		// LHE: tailBeforePosition 자리에 Body 생성
 		// => SnakeGameMode.cpp에서 수행
+		
+
+		AActor* Body = GetSnakeGameMode()->GetPart(GetActorLocation(), "Body");
+		if (Body->ActorHasTag("MyBody"))
+		{
+			//Error Log
+			UE_LOG(LogTemp, Error, TEXT("Game Over"));
+
+			return;
+		}
+		Body->Destroy();
+		GetSnakeGameMode()->CurBodyReset();
+
 
 		// 여기서 Body 생성
 		FTransform tailTrans;
@@ -132,11 +157,8 @@ void ASnakeHead::LeftAction()
 		ASnakeHead::myTail = GetWorld()->SpawnActor<AActor>(BodyType, tailTrans);
 		// TArray에 Add
 		wholeSnake.Add(myTail);
-
-
-		AActor* Body = GetSnakeGameMode()->GetPart(GetActorLocation(), "Body");
-		Body->Destroy();
-		GetSnakeGameMode()->CurBodyReset();
+		// Tag 추가
+		myTail->Tags.Add("MyBody");
 	}
 }
 void ASnakeHead::RightAction()
@@ -182,16 +204,26 @@ void ASnakeHead::RightAction()
 	// 여기에 Body가 있는지 확인해야 한다.
 	if (true == GetSnakeGameMode()->IsPart(GetActorLocation(), "Body"))
 	{
+		AActor* Body = GetSnakeGameMode()->GetPart(GetActorLocation(), "Body");
+		if (Body->ActorHasTag("MyBody"))
+		{
+			//Error Log
+			UE_LOG(LogTemp, Error, TEXT("Game Over"));
+
+			return;
+		}
+		Body->Destroy();
+		GetSnakeGameMode()->CurBodyReset();
+
+
 		// 여기서 Body 생성
 		FTransform tailTrans;
 		tailTrans.SetLocation(ASnakeHead::tailBeforePosition);
 		ASnakeHead::myTail = GetWorld()->SpawnActor<AActor>(BodyType, tailTrans);
 		// TArray에 Add
 		wholeSnake.Add(myTail);
-
-		AActor* Body = GetSnakeGameMode()->GetPart(GetActorLocation(), "Body");
-		Body->Destroy();
-		GetSnakeGameMode()->CurBodyReset();
+		// Tag 추가
+		myTail->Tags.Add("MyBody");
 	}
 
 }
@@ -238,16 +270,26 @@ void ASnakeHead::UpAction()
 	// 여기에 Body가 있는지 확인해야 한다.
 	if (true == GetSnakeGameMode()->IsPart(GetActorLocation(), "Body"))
 	{
+		AActor* Body = GetSnakeGameMode()->GetPart(GetActorLocation(), "Body");
+		if (Body->ActorHasTag("MyBody"))
+		{
+			//Error Log
+			UE_LOG(LogTemp, Error, TEXT("Game Over"));
+
+			return;
+		}
+		Body->Destroy();
+		GetSnakeGameMode()->CurBodyReset();
+
+
 		// 여기서 Body 생성
 		FTransform tailTrans;
 		tailTrans.SetLocation(ASnakeHead::tailBeforePosition);
 		ASnakeHead::myTail = GetWorld()->SpawnActor<AActor>(BodyType, tailTrans);
 		// TArray에 Add
 		wholeSnake.Add(myTail);
-
-		AActor* Body = GetSnakeGameMode()->GetPart(GetActorLocation(), "Body");
-		Body->Destroy();
-		GetSnakeGameMode()->CurBodyReset();
+		// Tag 추가
+		myTail->Tags.Add("MyBody");
 	}
 }
 void ASnakeHead::DownAction()
@@ -294,15 +336,25 @@ void ASnakeHead::DownAction()
 	// 여기에 Body가 있는지 확인해야 한다.
 	if (true == GetSnakeGameMode()->IsPart(GetActorLocation(), "Body"))
 	{
+		AActor* Body = GetSnakeGameMode()->GetPart(GetActorLocation(), "Body");
+		if (Body->ActorHasTag("MyBody"))
+		{
+			//Error Log
+			UE_LOG(LogTemp, Error, TEXT("Game Over"));
+
+			return;
+		}
+		Body->Destroy();
+		GetSnakeGameMode()->CurBodyReset();
+
+
 		// 여기서 Body 생성
 		FTransform tailTrans;
 		tailTrans.SetLocation(ASnakeHead::tailBeforePosition);
 		ASnakeHead::myTail = GetWorld()->SpawnActor<AActor>(BodyType, tailTrans);
 		// TArray에 Add
 		wholeSnake.Add(myTail);
-
-		AActor* Body = GetSnakeGameMode()->GetPart(GetActorLocation(), "Body");
-		Body->Destroy();
-		GetSnakeGameMode()->CurBodyReset();
+		// Tag 추가
+		myTail->Tags.Add("MyBody");
 	}
 }
